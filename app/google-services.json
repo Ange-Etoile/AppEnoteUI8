@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "87282248336",
+    "project_id": "enoteapp-87a6c",
+    "storage_bucket": "enoteapp-87a6c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87282248336:android:d6f6d02ab224d6b6718615",
+        "android_client_info": {
+          "package_name": "com.example.appenote"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUWXtJrI8Jmy-F7zmEMmtA89Q8XeWyyWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
