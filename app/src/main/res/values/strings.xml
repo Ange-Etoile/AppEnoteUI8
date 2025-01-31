@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">AppEnote</string>
+    <string name="sign_up">Sign up</string>
+    <string name="password">password</string>
+    <string name="matricule">matricule</string>
+    <string name="name">name</string>
+    <string name="surname">surname</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="please_enter_your_new_password_below">Please enter your new password below</string>
+    <string name="at_least_8_characters">At least 8 characters</string>
+    <string name="one_uppercase_letter">One uppercase letter</string>
+    <string name="one_number">One number</string>
+    <string name="one_special_character">One special character</string>
+    <string name="password_must_contain">Password must contain:</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="confirm_new_password">Confirm new password</string>
 </resources>
