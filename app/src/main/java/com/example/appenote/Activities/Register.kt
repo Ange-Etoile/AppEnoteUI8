@@ -1,5 +1,6 @@
 package com.example.appenote.Activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -26,7 +27,6 @@ class Register : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         enableEdgeToEdge()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -37,7 +37,7 @@ class Register : AppCompatActivity() {
         val application = this.application
 
         // Créer l'instance de UserRepositoryImpl
-        val userRepository = UserRepositoryImpl(firestore, application)
+        val userRepository = UserRepositoryImpl(firestore, application,applicationContext)
 
         //  Créer le ViewModel en lui passant le UserRepository
         registerViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
@@ -64,6 +64,9 @@ class Register : AppCompatActivity() {
             }
             else{
                 registerViewModel.registerUser(nom,prenom,matricule,password)
+                val intent = Intent(this, QuestionRegister::class.java)
+                startActivity(intent)
+                finish()
             }
         }
     }

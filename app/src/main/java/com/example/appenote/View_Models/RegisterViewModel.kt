@@ -1,6 +1,6 @@
 package com.example.appenote.View_Models
 
-import android.util.Log
+
 import androidx.lifecycle.ViewModel
 import com.example.appenote.Repository.UserRepository
 
@@ -12,6 +12,7 @@ class RegisterViewModel(private val userRepository: UserRepository) : ViewModel(
 
 
             userRepository.registerUser(name, firstname, matricule, password)
+            userRepository.saveUserIdToSharedPreferences(matricule)
         }
     }
 }
