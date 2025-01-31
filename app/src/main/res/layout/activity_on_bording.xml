@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activities.OnBordingActivity">
 
 
@@ -12,6 +13,7 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/white"
         android:layout_above="@id/relativeLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"

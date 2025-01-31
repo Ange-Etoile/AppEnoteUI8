@@ -1,7 +1,9 @@
 package com.example.appenote.activities
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -10,12 +12,15 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appenote.R
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var inputPet: TextInputLayout
     private lateinit var inputBorn: TextInputLayout
     private lateinit var inputColor: TextInputLayout
+    private lateinit var inputMatricule: TextInputLayout
     private lateinit var verifyButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +33,7 @@ class HomeActivity : AppCompatActivity() {
             insets
         }
 
+        inputMatricule = findViewById(R.id.input_matricule)
         inputPet = findViewById(R.id.input_pet)
         inputBorn = findViewById(R.id.input_born)
         inputColor = findViewById(R.id.input_color)
@@ -42,6 +48,13 @@ class HomeActivity : AppCompatActivity() {
     private fun validateInput() {
         var isValid = true
 
+        val matricule = inputMatricule.editText?.text.toString().trim()
+        if (matricule.isEmpty()) {
+            inputMatricule.error = "Please enter your pet's name"
+            isValid = false
+        } else {
+            inputMatricule.error = null
+        }
         val petName = inputPet.editText?.text.toString().trim()
         if (petName.isEmpty()) {
             inputPet.error = "Please enter your pet's name"
@@ -67,20 +80,42 @@ class HomeActivity : AppCompatActivity() {
         }
 
         if (isValid) {
-            savePrefs(petName,bornCity,favoriteColor)
-            getPrefs()
+            savePrefs(matricule,petName,bornCity,favoriteColor)
+//            getPrefs()
         }
     }
 
-    private fun savePrefs(petName: String, bornCity: String, favoriteColor: String) {
+    private fun savePrefs(matricule:String,petName: String, bornCity: String, favoriteColor: String) {
 
-        val sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
 
-        editor.putString("petName",petName)
-        editor.putString("bornCity",bornCity)
-        editor.putString("favoriteColor",favoriteColor)
-        editor.apply()
+        val db = Firebase.firestore
+
+//        val documentSnapshot = db.collection("users").document(matricule).get().await()
+//
+//        if (documentSnapshot.exists()) {
+//        }
+
+        val user = hashMapOf(
+            "petName" to petName,
+            "bornCity" to bornCity,
+            "favoriteColor" to favoriteColor
+        )
+
+        db.collection("users").document(matricule)
+            .set(user)
+            .addOnSuccessListener {
+                Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+
+                Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show()
+            }
+//        val sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+//        val editor = sharedPreferences.edit()
+//
+//        editor.putString("petName",petName)
+//        editor.putString("bornCity",bornCity)
+//        editor.putString("favoriteColor",favoriteColor)
+//        editor.apply()
     }
 
     private fun getPrefs(){

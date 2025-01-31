@@ -30,72 +30,66 @@
             app:srcCompat="@drawable/wave_top" />
 
         <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="false"
+            android:layout_marginLeft="52px"
+            android:textStyle="bold"
+            android:layout_marginTop="180px"
+            android:text="Forget Password?"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
+
+        <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/imageView4"
-            android:layout_toRightOf="@id/imageView4"
-            android:text="Sing in"
+            android:layout_below="@id/textView3"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:text="Don't worry! It happens. Please answer these questions to  \nverify your identity."
             android:textColor="@color/white" />
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="40dp"
-
-            android:layout_marginTop="40dp"
-            app:srcCompat="@drawable/arrow" />
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Forgot Password?"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:text="Don't worry! It happens. Please answer these questions to  \nverify your identity."
-        android:textColor="@color/text_sub"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:orientation="vertical"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6">
-
-        <TextView
-            android:id="@+id/text_pet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:text="What was the name of your first pet?"
-            android:textColor="@color/text_sub" />
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
 
         <com.google.android.material.textfield.TextInputLayout
 
+            android:id="@+id/input_matricule"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="0dp"
+            android:hint="Enter your registration number"
+            android:textColorHint="@color/gray"
+            app:boxBackgroundColor="@color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_pet"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
@@ -103,6 +97,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="0dp"
+            android:layout_marginBottom="20dp"
             android:hint="Enter your pet's name"
             android:textColorHint="@color/gray"
             app:boxBackgroundColor="@color/white">
@@ -110,17 +105,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/text_born"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="10dp"
-            android:text="In which city were you born?"
-            android:textColor="@color/text_sub" />
 
         <com.google.android.material.textfield.TextInputLayout
 
@@ -131,6 +118,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="0dp"
+            android:layout_marginBottom="20dp"
             android:hint="Enter your born's city"
             android:textColorHint="@color/gray"
             app:boxBackgroundColor="@color/white">
@@ -140,15 +128,6 @@
                 android:layout_height="wrap_content"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/text_color"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="10dp"
-            android:text="What is your favorite color?"
-            android:textColor="@color/text_sub" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_color"
@@ -167,15 +146,14 @@
                 android:layout_height="wrap_content"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
-        
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/verifyButton"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="50dp"
-            app:cornerRadius="4dp"
             android:text="Verify Identity"
-            />
+            app:cornerRadius="4dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
