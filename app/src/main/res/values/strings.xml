@@ -7,7 +7,7 @@
     <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign up</string>
     <string name ="question">Don\'t have an account ?</string>
-    <string name="ph_email">Enter your email</string>
+    <string name="ph_matricule">Enter your matricule</string>
     <string name="ph_pw">Enter your password</string>
-    <string name="si"> sign to your account</string>
+    <string name="si"> log to your account</string>
 </resources>
