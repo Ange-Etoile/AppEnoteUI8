@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">AppEnote</string>
+    <string name="login">Sign in</string>
+    <string name="wel">welcome back</string>
+    <string name="remember">Remember me</string>
+    <string name="forget">Forget password?</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name ="question">Don\'t have an account ?</string>
+    <string name="ph_matricule">Enter your matricule</string>
+    <string name="ph_pw">Enter your password</string>
+    <string name="si"> log to your account</string>
 </resources>
