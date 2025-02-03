@@ -15,8 +15,7 @@
         <activity
             android:name=".activities.OnBordingActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppEnote.NoActionBar"
-            />
+            android:theme="@style/Theme.AppEnote.NoActionBar" />
         <activity
             android:name=".activities.SplashScreenActivity"
             android:exported="true"
@@ -29,7 +28,7 @@
         </activity>
         <activity
             android:name=".activities.HomeActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>

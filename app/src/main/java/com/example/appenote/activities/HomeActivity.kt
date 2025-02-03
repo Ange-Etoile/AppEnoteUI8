@@ -1,13 +1,18 @@
 package com.example.appenote.activities
 
+import android.app.ProgressDialog
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appenote.R
@@ -22,10 +27,12 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var inputColor: TextInputLayout
     private lateinit var inputMatricule: TextInputLayout
     private lateinit var verifyButton: Button
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        changeStatusBarColorToPrimary()
         setContentView(R.layout.activity_home)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -44,6 +51,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
     }
+
 
     private fun validateInput() {
         var isValid = true
@@ -80,55 +88,68 @@ class HomeActivity : AppCompatActivity() {
         }
 
         if (isValid) {
-            savePrefs(matricule,petName,bornCity,favoriteColor)
-//            getPrefs()
-        }
+            showLoadingDialog()
+            verifySecurityQuestions(matricule,petName,bornCity,favoriteColor)
+        } else {
+        Toast.makeText(this, "Veuillez répondre à toutes les questions", Toast.LENGTH_SHORT).show()
+    }
     }
 
-    private fun savePrefs(matricule:String,petName: String, bornCity: String, favoriteColor: String) {
-
+    private fun verifySecurityQuestions(matricule: String,petName: String, bornCity: String, favoriteColor: String) {
 
         val db = Firebase.firestore
 
-//        val documentSnapshot = db.collection("users").document(matricule).get().await()
-//
-//        if (documentSnapshot.exists()) {
-//        }
+        db.collection("securityQuestions")
+            .document("matricule")
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    val correctPetName = document.getString("petName")
+                    val correctBornCity = document.getString("bornCity")
+                    val correctFavoriteColor = document.getString("favoriteColor")
 
-        val user = hashMapOf(
-            "petName" to petName,
-            "bornCity" to bornCity,
-            "favoriteColor" to favoriteColor
-        )
+                    if (petName == correctPetName && bornCity == correctBornCity && favoriteColor == correctFavoriteColor) {
+                        Toast.makeText(this, "Les réponses sont correctes", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, "Les réponses sont incorrectes", Toast.LENGTH_SHORT).show()
+                    }
+                    savePreferences("matricule",matricule)
 
-        db.collection("users").document(matricule)
-            .set(user)
-            .addOnSuccessListener {
-                Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
-            }.addOnFailureListener {
-
-                Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Utilisateur introuvable", Toast.LENGTH_SHORT).show()
+                }
+                progressDialog.dismiss()
             }
-//        val sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
-//        val editor = sharedPreferences.edit()
-//
-//        editor.putString("petName",petName)
-//        editor.putString("bornCity",bornCity)
-//        editor.putString("favoriteColor",favoriteColor)
-//        editor.apply()
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Erreur: ${exception.message}", Toast.LENGTH_SHORT).show()
+                progressDialog.dismiss()
+            }
     }
 
-    private fun getPrefs(){
-        val sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
 
-        val petName = sharedPreferences.getString("petName", null)
-        val bornCity = sharedPreferences.getString("bornCity", null)
-        val favoriteColor = sharedPreferences.getString("favoriteColor", null)
+    private fun savePreferences (key: String , data: String){
+        val sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
 
-
-        if (petName != null && bornCity != null && favoriteColor != null) {
-            Toast.makeText(this, "SharedPreferences : Pet Name: $petName, Born City: $bornCity, Favorite Color: $favoriteColor", Toast.LENGTH_SHORT).show()
-        }else
-            Toast.makeText(this,  "erroooooroooorororororo", Toast.LENGTH_SHORT).show()
+        editor.putString(key,data)
+        editor.apply()
     }
+
+    private fun showLoadingDialog() {
+        progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Vérification en cours...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
+    }
+
+    private fun changeStatusBarColorToPrimary() {
+        val color = ContextCompat.getColor(this, R.color.primary)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val window: Window = window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = (color)
+            window.navigationBarColor = (color)
+        }
+    }
+
 }
