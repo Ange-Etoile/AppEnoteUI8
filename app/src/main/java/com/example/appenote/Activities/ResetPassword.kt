@@ -3,6 +3,7 @@ package com.example.appenote.Activities
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -62,6 +63,7 @@ class ResetPassword : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(password: CharSequence?, start: Int, before: Int, count: Int) {
+                mainBinding.passwordRules.visibility = if(password.isNullOrEmpty()) View.GONE else View.VISIBLE
                 password?.let { viewModel.validatePassword(it.toString()) }
             }
 
@@ -74,7 +76,7 @@ class ResetPassword : AppCompatActivity() {
         mainBinding.confirmPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                validatePasswordConfirmation()
+                mainBinding.passwordRules.visibility = View.GONE
             }
             override fun afterTextChanged(s: Editable?) {
 
@@ -82,7 +84,22 @@ class ResetPassword : AppCompatActivity() {
         })
         mainBinding.btnResetPwd.setOnClickListener {
             val password = mainBinding.editPassword.text.toString()
-            viewModel.updatepassword(password)
+            val confirmPassword = mainBinding.confirmPassword.text.toString()
+
+            if (password != confirmPassword) {
+                mainBinding.confirmPassword.error  = "le mot de passe ne corespond pas"
+            } else {
+                viewModel.isProgressBarVisible.observe(this, Observer {
+                    isVisible->
+                    run {
+                        mainBinding.progressBar.visibility =
+                            if (isVisible) View.VISIBLE else View.GONE
+                    }
+                })
+                viewModel.updatepassword(password)
+            }
+
+
         }
     }
 

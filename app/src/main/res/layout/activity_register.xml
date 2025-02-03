@@ -26,14 +26,16 @@
             android:layout_height="80dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
             android:text="Sign Up"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_height="61dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="80dp"
             android:text="Please enter your information"
@@ -115,6 +117,6 @@
         android:layout_marginEnd="20dp"
         android:text="@string/sign_up"
         android:textSize="20sp"
-        android:backgroundTint="@color/blue"/>
+        android:background="@drawable/button" />
 
 </LinearLayout>

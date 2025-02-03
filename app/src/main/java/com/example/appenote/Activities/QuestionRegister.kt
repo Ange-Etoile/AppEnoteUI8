@@ -1,10 +1,12 @@
 package com.example.appenote.Activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.appenote.Models.Question
@@ -44,6 +46,13 @@ class QuestionRegister : AppCompatActivity() {
             val first_question = binding.editFirstQuestion.text.toString()
             val second_question = binding.editSndQuestion.text.toString()
             val last_question = binding.editLastQuestion.text.toString()
+            val progress_bar = binding.progressBar
+            questionViewModel.isProgressBarVisible.observe(this, Observer {
+                isVisible->
+                run {
+                    progress_bar.visibility = if (isVisible) View.VISIBLE else View.GONE
+                }
+            })
             val question = Question(matricule,first_question,second_question,last_question)
             if(binding.editFirstQuestion.text.toString().isEmpty()){
                 binding.editFirstQuestion.error = "veuillez repondre a cette question"
