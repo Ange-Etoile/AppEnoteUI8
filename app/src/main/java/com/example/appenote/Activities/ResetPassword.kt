@@ -88,7 +88,14 @@ class ResetPassword : AppCompatActivity() {
 
             if (password != confirmPassword) {
                 mainBinding.confirmPassword.error  = "le mot de passe ne corespond pas"
-            } else {
+            }
+            if(password.isEmpty()){
+                mainBinding.editPassword.error = "ce champs ne peux pas etre vide"
+            }
+            if(confirmPassword.isEmpty()){
+                mainBinding.confirmPassword.error = "ce champs ne peux pas etre vide"
+            }
+            else {
                 viewModel.isProgressBarVisible.observe(this, Observer {
                     isVisible->
                     run {

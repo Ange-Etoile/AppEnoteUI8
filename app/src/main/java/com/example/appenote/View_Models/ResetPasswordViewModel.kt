@@ -17,7 +17,7 @@ class ResetPasswordViewModel(private val resetPasswordRepository: ResetPasswordR
     val isLengthValid = MutableLiveData<Boolean>()
 
     // LiveData pour l'icône générale de la force du mot de passe (si tu veux afficher un indicateur global de force)
-    val passwordStrength = MutableLiveData<String>()
+    val passwordStrength = MutableLiveData<Boolean>()
     private val _isProgressBarVisible = MutableLiveData<Boolean>(false)
     val isProgressBarVisible: LiveData<Boolean> get() = _isProgressBarVisible
 
@@ -29,10 +29,9 @@ class ResetPasswordViewModel(private val resetPasswordRepository: ResetPasswordR
         isLengthValid.value = password.length >= 8
 
         // Indicateur général de la force du mot de passe (optionnel)
-        passwordStrength.value = when {
-            isLengthValid.value == true && isUppercaseValid.value == true &&
-                    isNumberValid.value == true && isSpecialValid.value == true -> "Strong"
-            else -> "Weak"
+         if (isLengthValid.value == true && isUppercaseValid.value == true &&
+            isNumberValid.value == true && isSpecialValid.value == true ){
+             passwordStrength.value = true
         }
 
     }
@@ -45,6 +44,9 @@ class ResetPasswordViewModel(private val resetPasswordRepository: ResetPasswordR
                 _isProgressBarVisible.value = false
             }
             })
+        }
+        else{
+            _isProgressBarVisible.value = false
         }
     }
 

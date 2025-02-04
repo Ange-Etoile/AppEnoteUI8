@@ -16,7 +16,7 @@ class ResetPasswordRepositoryImpl(private val firestore: FirebaseFirestore,priva
         return bytes.joinToString("") { "%02x".format(it) }
     }
     override fun upadeteUser(password: String,onResult: (Boolean) -> Unit) {
-        val userRef = firestore.collection("users").document("22S78999JJ")
+        val userRef = firestore.collection("users").document("22S76890")
         val updates = mapOf(
             "password" to password  // Nouveau mot pour l'utilisateur
         )
